@@ -1,0 +1,109 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "main": [
+    { "scene": "hook", "lines": [
+      "A hundred hours. One patch of sky. And absolutely nothing there.",
+      "At least, that's what it looked like, until the James Webb Space Telescope kept staring.",
+      "What came back was more than two thousand five hundred sources, hiding in the dark.",
+      "This is Webb's deepest look yet."
+    ]},
+    { "scene": "patch", "lines": [
+      "Look up at the Moon. Now imagine a patch of sky just one tenth as wide.",
+      "That tiny square sits in the constellation Fornax, and from the ground, it looks almost completely empty.",
+      "Astronomers call a view like this a deep field. The idea is simple, and a little crazy: point a telescope at the emptiest place you can find, and never look away.",
+      "In 2003, Hubble did exactly that. And the darkness turned out to be anything but empty."
+    ]},
+    { "scene": "hubble", "lines": [
+      "Between September 2003 and January 2004, the Hubble Space Telescope stared at this patch.",
+      "It took eight hundred exposures, across four hundred orbits of Earth, adding up to eleven point three days of light.",
+      "The result was the Hubble Ultra Deep Field, with nearly ten thousand galaxies, in a patch a tenth the width of the Moon.",
+      "But Hubble mostly sees visible light. And the earliest galaxies, and the dustiest ones, hide from it.",
+      "To find them, we needed a different kind of eye."
+    ]},
+    { "scene": "redshift", "lines": [
+      "Here's the problem. The universe is expanding, so light from the most distant galaxies gets stretched on its long journey.",
+      "Blue light becomes red. Red light slides out of our sight entirely, into the infrared. Astronomers call this redshift.",
+      "Dust does something similar. It soaks up starlight, and glows quietly in the infrared.",
+      "So to see the early universe, you have to see heat."
+    ]},
+    { "scene": "webb", "lines": [
+      "Enter Webb. A six and a half metre mirror, made of eighteen gold-coated hexagons.",
+      "Behind it, a five-layer sunshield, as big as a tennis court, keeps the whole telescope freezing cold.",
+      "Because infrared light is heat. And a warm telescope would be blinded by its own glow."
+    ]},
+    { "scene": "miri", "lines": [
+      "But one instrument on Webb needs to be even colder. It's called MIRI, the Mid-Infrared Instrument, and it sees wavelengths from five to twenty-eight microns.",
+      "The sunshield alone cools it to about ninety kelvin. That's still far too warm.",
+      "So Webb carries a dedicated cryocooler, a helium refrigerator, that drags MIRI's detectors down to under seven kelvin.",
+      "Every single degree warmer makes the detector's own noise about ten times worse.",
+      "In April 2022, MIRI reached six point four kelvin. Just a few degrees above absolute zero.",
+      "Now it was ready to stare."
+    ]},
+    { "scene": "exposure", "lines": [
+      "The target was Hubble's classic field, in a survey called MIDIS, the MIRI Deep Imaging Survey.",
+      "Nearly a hundred hours of observing, across MIRI's shortest-wavelength filters, combined with Webb's near-infrared camera.",
+      "Forty-one of those hours went into a single filter, the longest Webb has ever spent on an extragalactic field in one filter.",
+      "Watch what happens as the hours pile up. At first, there's only noise.",
+      "Photon by photon, the faintest light builds up. Smudges become shapes. Shapes become galaxies.",
+      "Each extra hour reveals fainter, older, more distant things.",
+      "To be fair, it is not Webb's longest stare overall. In 2025 it spent more than a hundred and twenty hours on the galaxy cluster Abell S1063."
+    ]},
+    { "scene": "sources", "lines": [
+      "When the image was finished, astronomers counted more than two thousand five hundred sources in this tiny patch.",
+      "Orange and red ones are dusty galaxies, or old stars from the early universe.",
+      "Small, greenish-white ones are especially distant, their light stretched far into the infrared.",
+      "And the blue and cyan galaxies shine brightest in the near-infrared.",
+      "More than five hundred galaxies already have measured distances, some as far as redshift eleven.",
+      "Around twenty-five look like they're from the first billion years.",
+      "And more than a hundred are so red, they're nearly invisible without Webb."
+    ]},
+    { "scene": "virgil", "lines": [
+      "One of them is a little red dot nicknamed Virgil, at a redshift of about six point six.",
+      "In near-infrared alone, it looked faint and ordinary. But MIRI revealed an extremely red glow, and the first clear detection of the galaxy hosting one of these little red dots.",
+      "That glow hints at an active black hole inside. Something Webb's other cameras completely missed."
+    ]},
+    { "scene": "dawn", "lines": [
+      "Look deeper, and you reach cosmic dawn, when the first stars lit up.",
+      "In 2024, the JADES survey confirmed a galaxy at redshift fourteen point three two, seen just two hundred ninety million years after the Big Bang.",
+      "And in January 2026, a galaxy called MoM-z14 pushed that to redshift fourteen point four four, about two hundred eighty million years after the Big Bang.",
+      "And Webb isn't done."
+    ]},
+    { "scene": "outro", "lines": [
+      "A hundred hours of staring at nothing, and the nothing was full.",
+      "What should Webb look at next? Tell us below, and subscribe to Technical Talk India."
+    ]}
+  ],
+  "short": [
+    { "scene": "hook", "lines": [
+      "Webb stared at one empty patch of sky for a hundred hours.",
+      "Here's what it found."
+    ]},
+    { "scene": "patch", "lines": [
+      "That patch is only a tenth as wide as the full Moon."
+    ]},
+    { "scene": "exposure", "lines": [
+      "Hour by hour, the darkness fills with light.",
+      "Galaxies that Hubble never saw start to appear.",
+      "Some are so distant, their light is stretched into the infrared.",
+      "Dusty, red, and ancient."
+    ]},
+    { "scene": "sources", "lines": [
+      "More than two thousand five hundred sources, in a speck of sky.",
+      "Hundreds are extremely red."
+    ]},
+    { "scene": "dawn", "lines": [
+      "Some date to just two hundred eighty million years after the Big Bang.",
+      "Follow for more space."
+    ]}
+  ],
+  "sources": [
+    "ESA/Webb, NASA & CSA: 'A fresh look at a classic deep field' (potm2507a), Aug 2025",
+    "Phys.org / Sci.News / Universe Today / Live Science coverage of the MIDIS deep field",
+    "Östlin, Pérez-González, Melinder et al., MIDIS survey paper, A&A (arXiv/ISTA record 19845)",
+    "Iani et al., 'MIDIS: MIRI uncovers Virgil...' (arXiv:2406.18207, ApJ)",
+    "ESA Hubble: Hubble Ultra Deep Field (heic0406) and NOAA SOS dataset notes",
+    "NASA: Webb MIRI reaches operating temperature (April 2022)",
+    "ESA/Webb weic2603 (MoM-z14, Jan 2026); JADES GS-z14-0 (ESA, Univ. of Arizona, 2024)",
+    "ESA/Webb potm2505a (Abell S1063, ~120 hours)"
+  ]
+}

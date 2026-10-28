@@ -1,0 +1,115 @@
+name: Render Webb Deep Field video
+
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "Outputs to render (comma separated): 4k, 1080p, shorts"
+        default: "4k,1080p,shorts"
+      fps:
+        description: "Frames per second"
+        default: "30"
+      segment_seconds:
+        description: "Seconds of video per parallel job (smaller = faster wall-clock, more jobs)"
+        default: "30"
+      voice:
+        description: "edge-tts voice (e.g. en-US-AndrewNeural, en-IN-PrabhatNeural, en-GB-RyanNeural)"
+        default: "en-US-AndrewNeural"
+
+jobs:
+  audio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: npm }
+      - run: npm ci
+      - name: Use bundled ffmpeg (no apt)
+        run: echo "FFMPEG=$(node -p "require('ffmpeg-static')")" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -U "edge-tts>=7.0.0" numpy
+      - run: python scripts/make_audio.py
+        env:
+          VOICE: ${{ inputs.voice }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio
+          path: |
+            build/*.m4a
+            build/captions_*.json
+
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: node scripts/plan.mjs
+        env:
+          TARGETS: ${{ inputs.targets }}
+          SEGMENT_SECONDS: ${{ inputs.segment_seconds }}
+
+  render:
+    needs: [audio, plan]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    name: render ${{ matrix.target }} #${{ matrix.idx }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: npm }
+      - run: npm ci
+      - name: Use bundled ffmpeg (no apt)
+        run: echo "FFMPEG=$(node -p "require('ffmpeg-static')")" >> "$GITHUB_ENV"
+      - uses: actions/download-artifact@v4
+        with: { name: audio, path: build }
+      - name: Smoke test (WebGL2 + one frame)
+        run: node scripts/render.mjs --target still --scene exposure --p 0.6 --out build/smoke.png
+      - name: Render segment
+        run: >
+          node scripts/render.mjs --target ${{ matrix.target }}
+          --from ${{ matrix.from }} --to ${{ matrix.to }} --fps ${{ inputs.fps }}
+          --out build/seg/${{ matrix.target }}_${{ matrix.idx }}.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seg-${{ matrix.target }}-${{ matrix.idx }}
+          path: build/seg/${{ matrix.target }}_${{ matrix.idx }}.mp4
+          retention-days: 3
+
+  assemble:
+    needs: [render]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: npm }
+      - run: npm ci
+      - name: Use bundled ffmpeg (no apt)
+        run: echo "FFMPEG=$(node -p "require('ffmpeg-static')")" >> "$GITHUB_ENV"
+      - uses: actions/download-artifact@v4
+        with: { name: audio, path: build }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "seg-*", path: segs, merge-multiple: true }
+      - name: Concatenate segments and mux audio
+        run: |
+          mkdir -p dist
+          for T in $(echo "${{ inputs.targets }}" | tr ',' ' '); do
+            if [ "$T" = "shorts" ]; then A=build/audio_short.m4a; N=webb-deep-field-shorts; else A=build/audio_main.m4a; N=webb-deep-field-$T; fi
+            bash scripts/assemble.sh "$T" segs "$A" "dist/$N.mp4"
+          done
+      - name: Thumbnail + YouTube description
+        run: |
+          node scripts/render.mjs --target still --scene sources --p 0.45 --nohud true --thumb true --out dist/thumbnail.png
+          node scripts/make_description.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: webb-deep-field-final
+          path: dist/
+          retention-days: 14

@@ -1,0 +1,26 @@
+{
+  "name": "webb-deep-field",
+  "version": "1.0.0",
+  "description": "Webb's Deepest Look Yet — Three.js/WebGL deterministic video renderer",
+  "main": "index.js",
+  "scripts": {
+    "audio": "python3 scripts/make_audio.py",
+    "still": "node scripts/render.mjs --target still",
+    "test-render": "node scripts/render.mjs --target 1080p --from 300 --to 303 --out build/test.mp4",
+    "render:1080p": "node scripts/render.mjs --target 1080p --out build/out_1080p.mp4",
+    "render:4k": "node scripts/render.mjs --target 4k --out build/out_4k.mp4",
+    "render:shorts": "node scripts/render.mjs --target shorts --out build/out_shorts.mp4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@sparticuz/chromium": "^131.0.1",
+    "ffmpeg-static": "^5.3.0",
+    "puppeteer-core": "^23.11.1",
+    "three": "^0.170.0"
+  },
+  "private": true,
+  "type": "module"
+}
